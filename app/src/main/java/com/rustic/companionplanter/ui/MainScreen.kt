@@ -12,9 +12,9 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -130,7 +130,7 @@ fun MainScreen(vm: MainViewModel) {
                         onClick = { picker.launch("image/*") },
                         modifier = Modifier.weight(1f)
                     ) {
-                        Icon(Icons.Filled.PhotoCamera, null)
+                        Icon(Icons.Filled.Add, null)
                         Spacer(Modifier.width(6.dp))
                         Text("Photo")
                     }
