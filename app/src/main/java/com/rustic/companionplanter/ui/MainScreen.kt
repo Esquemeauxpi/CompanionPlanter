@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -36,9 +35,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
 import com.rustic.companionplanter.model.BadNeighbor
 import com.rustic.companionplanter.model.Companion
 import com.rustic.companionplanter.model.UiState
@@ -317,41 +313,10 @@ private fun CompanionCard(
             .border(2.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(16.dp))
     ) {
         Column {
-            SubcomposeAsyncImage(
-                model = c.imageUrl,
-                contentDescription = c.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth().height(180.dp)
-                    .clip(RoundedCornerShape(topStart = 14.dp, topEnd = 14.dp))
-            ) {
-                when (val s = painter.state) {
-                    is AsyncImagePainter.State.Loading -> Box(
-                        Modifier.fillMaxSize().background(
-                            MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)),
-                        contentAlignment = Alignment.Center
-                    ) { CircularProgressIndicator(
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(32.dp)) }
-                    is AsyncImagePainter.State.Error -> Box(
-                        Modifier.fillMaxSize().background(Color(0xFFFFEBEB)),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("📵", fontSize = 28.sp)
-                            Text("No network",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = Color(0xFFCC4444))
-                            Text(s.result?.throwable?.message?.take(40) ?: "",
-                                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 10.sp),
-                                color = Color(0xFFCC4444).copy(alpha = 0.7f),
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier.padding(horizontal = 8.dp))
-                        }
-                    }
-                    else -> SubcomposeAsyncImageContent()
-                }
-            }
+            PlantIllustration(
+                plantName = c.name,
+                height = 180.dp
+            )
             Column(Modifier.padding(14.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(c.name,
