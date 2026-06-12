@@ -1,6 +1,7 @@
 package com.rustic.companionplanter.ui
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -25,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -301,6 +303,7 @@ private fun CompanionCard(
     inGarden: Boolean,
     onAddToGarden: () -> Unit
 ) {
+    val context = LocalContext.current
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
@@ -334,7 +337,14 @@ private fun CompanionCard(
                             color = MaterialTheme.colorScheme.primary)
                     } else {
                         TextButton(
-                            onClick = onAddToGarden,
+                            onClick = {
+                                onAddToGarden()
+                                Toast.makeText(
+                                    context,
+                                    "Added to My Garden",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            },
                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                         ) {
                             Icon(Icons.Filled.Add, null, modifier = Modifier.size(16.dp))
