@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -317,6 +318,8 @@ private fun CompanionCard(
                 model = c.imageUrl,
                 contentDescription = c.name,
                 contentScale = ContentScale.Crop,
+                placeholder = ColorPainter(MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)),
+                error = ColorPainter(Color(0xFFCC4444).copy(alpha = 0.3f)),
                 modifier = Modifier
                     .fillMaxWidth().height(180.dp)
                     .clip(RoundedCornerShape(topStart = 14.dp, topEnd = 14.dp))
